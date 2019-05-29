@@ -83,3 +83,23 @@
 
 
 ![](ScreenShot/img1.png "")
+
+
+
+/**
+     * 判断AccessibilityService服务是否已经启动
+     * @param context
+     * @param name
+     * @return
+     */
+    public static boolean isStartAccessibilityService(Context context, String name){
+        AccessibilityManager am = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+        List<AccessibilityServiceInfo> serviceInfos = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
+        for (AccessibilityServiceInfo info : serviceInfos) {
+            String id = info.getId();
+            if (id.contains(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
