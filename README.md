@@ -143,3 +143,18 @@ private boolean isAccessibilitySettingsOn(Context mContext) {
  
     return false;
 }
+
+
+
+ //跳转到当前应用信息界面,清缓存\清数据..
+ Intent localIntent = new Intent();
+ localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+ if (Build.VERSION.SDK_INT >= 9) {
+     localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+     localIntent.setData(Uri.fromParts("package", getPackageName(),null));
+ } else if (Build.VERSION.SDK_INT <= 8) {
+     localIntent.setAction(Intent.ACTION_VIEW);
+     localIntent.setClassName("com.android.settings","com.android.settings.InstalledAppDetails");
+     localIntent.putExtra("com.android.settings.ApplicationPkgName", getPackageName());
+ }
+ startActivity(localIntent);
